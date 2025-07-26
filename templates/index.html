@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional CV Creator</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #002060;
+            --secondary-color: #0066cc;
+            --accent-color: #4a90e2;
+            --success-color: #28a745;
+            --text-color: #333;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-color);
+        }
+
+        .header-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin: 20px 0;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .main-title {
+            color: var(--primary-color);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            background: var(--bg-gradient);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin: 30px 0 20px 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.25rem rgba(74, 144, 226, 0.25);
+        }
+
+        .btn-primary {
+            background: var(--bg-gradient);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            border: none;
+            border-radius: 10px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+        }
+
+        .btn-outline-danger {
+            border: 2px solid #dc3545;
+            color: #dc3545;
+            border-radius: 8px;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .dynamic-section {
+            border: 2px dashed #dee2e6;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            background: rgba(248, 249, 250, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .dynamic-section:hover {
+            border-color: var(--accent-color);
+            background: rgba(248, 249, 250, 1);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .tips-section {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #fdcb6e;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .required {
+            color: #dc3545;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .form-container {
+                padding: 20px;
+                margin: 10px 0;
+            }
+            
+            .section-header {
+                padding: 12px 20px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="header-section">
+            <h1 class="main-title">
+                <i class="fas fa-file-alt"></i>
+                Professional CV Creator
+            </h1>
+            <p class="subtitle">Create a standout CV that gets you noticed by employers</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <i class="fas fa-magic fa-2x text-primary mb-3"></i>
+                        <h5>Professional Formatting</h5>
+                        <p>Industry-standard layout and typography</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <i class="fas fa-check-circle fa-2x text-success mb-3"></i>
+                        <h5>ATS-Friendly</h5>
+                        <p>Optimized for Applicant Tracking Systems</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <i class="fas fa-download fa-2x text-info mb-3"></i>
+                        <h5>Instant Download</h5>
+                        <p>Get your CV in Microsoft Word format</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Form -->
+        <div class="form-container">
+            <form id="cvForm">
+                <!-- Personal Information -->
+                <div class="section-header">
+                    <i class="fas fa-user"></i>
+                    Personal Information
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">First Name <span class="required">*</span></label>
+                        <input type="text" class="form-control" name="firstName" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Last Name <span class="required">*</span></label>
+                        <input type="text" class="form-control" name="lastName" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Email <span class="required">*</span></label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Phone <span class="required">*</span></label>
+                        <input type="tel" class="form-control" name="phone" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">City <span class="required">*</span></label>
+                        <input type="text" class="form-control" name="city" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">State/Province</label>
+                        <input type="text" class="form-control" name="state">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Country</label>
+                        <input type="text" class="form-control" name="country">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Professional Title</label>
+                    <input type="text" class="form-control" name="professionalTitle" placeholder="e.g., Senior Software Engineer">
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">LinkedIn Profile</label>
+                        <input type="url" class="form-control" name="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">GitHub Profile</label>
+                        <input type="url" class="form-control" name="github" placeholder="https://github.com/yourusername">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Portfolio/Website</label>
+                        <input type="url" class="form-control" name="portfolio" placeholder="https://yourportfolio.com">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Professional Summary</label>
+                    <textarea class="form-control" name="summary" rows="4" 
+                              placeholder="2-3 sentences highlighting your experience, key skills, and career objectives..."></textarea>
+                    <div class="form-text">Write a compelling summary that showcases your value proposition</div>
+                </div>
+
+                <!-- Work Experience -->
+                <div class="section-header">
+                    <i class="fas fa-briefcase"></i>
+                    Work Experience
+                </div>
+
+                <div id="experienceContainer">
+                    <div class="dynamic-section experience-item">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5>Experience 1</h5>
+                            <button type="button" class="btn btn-outline-danger btn-sm remove-experience" style="display: none;">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Job Title</label>
+                                <input type="text" class="form-control" name="experiences[0][jobTitle]">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Company</label>
+                                <input type="text" class="form-control" name="experiences[0][company]">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-control" name="experiences[0][location]" placeholder="City, State">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Start Date</label>
+                                <input type="text" class="form-control" name="experiences[0][startDate]" placeholder="Jan 2020">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">End Date</label>
+                                <input type="text" class="form-control" name="experiences[0][endDate]" placeholder="Present">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Employment Type</label>
+                            <select class="form-select" name="experiences[0][employmentType]">
+                                <option value="Full-time">Full-time</option>
+                                <option value="Part-time">Part-time</option>
+                                <option value="Contract">Contract</option>
+                                <option value="Internship">Internship</option>
+                                <option value="Freelance">Freelance</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Responsibilities & Achievements</label>
+                            <div class="responsibilities-container">
+                                <div class="input-group mb-2">
+                                    <input type="text" class="form-control responsibility-input" 
+                                           placeholder="• Led development of microservices architecture serving 10M+ users">
+                                    <button type="button" class="btn btn-outline-secondary add-responsibility">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-text">Use action verbs and quantify achievements when possible</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary mb-4" id="addExperience">
+                    <i class="fas fa-plus"></i> Add Another Experience
+                </button>
+
+                <!-- Education -->
+                <div class="section-header">
+                    <i class="fas fa-graduation-cap"></i>
+                    Education
+                </div>
+
+                <div id="educationContainer">
+                    <div class="dynamic-section education-item">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5>Education 1</h5>
+                            <button type="button" class="btn btn-outline-danger btn-sm remove-education" style="display: none;">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Degree</label>
+                                <input type="text" class="form-control" name="education[0][degree]" placeholder="Bachelor of Science">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Field of Study</label>
+                                <input type="text" class="form-control" name="education[0][fieldOfStudy]" placeholder="Computer Science">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Institution</label>
+                                <input type="text" class="form-control" name="education[0][institution]" placeholder="University Name">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-control" name="education[0][location]" placeholder="City, State">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Graduation Date</label>
+                                <input type="text" class="form-control" name="education[0][graduationDate]" placeholder="May 2022">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">GPA (if 3.5+)</label>
+                                <input type="text" class="form-control" name="education[0][gpa]" placeholder="3.8">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Honors</label>
+                                <input type="text" class="form-control" name="education[0][honors]" placeholder="Summa Cum Laude">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary mb-4" id="addEducation">
+                    <i class="fas fa-plus"></i> Add Another Education
+                </button>
+
+                <!-- Skills -->
+                <div class="section-header">
+                    <i class="fas fa-cogs"></i>
+                    Skills & Competencies
+                </div>
+
+                <div id="skillsContainer">
+                    <div class="dynamic-section skills-item">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5>Skill Category 1</h5>
+                            <button type="button" class="btn btn-outline-danger btn-sm remove-skills" style="display: none;">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Category Name</label>
+                                <input type="text" class="form-control" name="skills[0][category]" placeholder="Technical Skills">
+                            </div>
+                            <div class="col-md-8 mb-3">
+                                <label class="form-label">Skills (comma-separated)</label>
+                                <input type="text" class="form-control skills-input" 
+                                       placeholder="Python (Expert), JavaScript (Advanced), SQL (Intermediate)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary mb-4" id="addSkills">
+                    <i class="fas fa-plus"></i> Add Another Skill Category
+                </button>
+
+                <!-- Projects -->
+                <div class="section-header">
+                    <i class="fas fa-project-diagram"></i>
+                    Projects (Optional)
+                </div>
+
+                <div id="projectsContainer">
+                    <div class="dynamic-section projects-item">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5>Project 1</h5>
+                            <button type="button" class="btn btn-outline-danger btn-sm remove-project" style="display: none;">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Project Name</label>
+                                <input type="text" class="form-control" name="projects[0][name]" placeholder="E-commerce Platform">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Project Type</label>
+                                <select class="form-select" name="projects[0][type]">
+                                    <option value="Personal">Personal</option>
+                                    <option value="Professional">Professional</option>
+                                    <option value="Academic">Academic</option>
+                                    <option value="Open Source">Open Source</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="projects[0][description]" rows="2" 
+                                      placeholder="Brief description of the project and its impact..."></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Technologies Used</label>
+                                <input type="text" class="form-control technologies-input" 
+                                       placeholder="React, Node.js, MongoDB">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Project URL</label>
+                                <input type="url" class="form-control" name="projects[0][url]" 
+                                       placeholder="https://github.com/username/project">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Duration</label>
+                            <input type="text" class="form-control" name="projects[0][duration]" placeholder="3 months">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary mb-4" id="addProject">
+                    <i class="fas fa-plus"></i> Add Another Project
+                </button>
+
+                <!-- Tips Section -->
+                <div class="tips-section">
+                    <h5><i class="fas fa-lightbulb"></i> Tips for Success</h5>
+                    <ul class="mb-0">
+                        <li>Use strong action verbs (Led, Developed, Implemented, Achieved)</li>
+                        <li>Quantify your achievements with numbers and percentages</li>
+                        <li>Tailor your CV for each job application</li>
+                        <li>Keep descriptions concise but impactful</li>
+                        <li>Proofread carefully before downloading</li>
+                    </ul>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center mt-5">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="fas fa-download"></i>
+                        Create & Download CV
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h4>Creating Your Professional CV...</h4>
+            <p>Please wait while we format your document</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let experienceCount = 1;
+        let educationCount = 1;
+        let skillsCount = 1;
+        let projectsCount = 1;
+
+        // Add Experience
+        document.getElementById('addExperience').addEventListener('click', function() {
+            const container = document.getElementById('experienceContainer');
+            const newExperience = createExperienceElement(experienceCount);
+            container.appendChild(newExperience);
+            experienceCount++;
+            updateRemoveButtons('experience');
+        });
+
+        // Add Education
+        document.getElementById('addEducation').addEventListener('click', function() {
+            const container = document.getElementById('educationContainer');
+            const newEducation = createEducationElement(educationCount);
+            container.appendChild(newEducation);
+            educationCount++;
+            updateRemoveButtons('education');
+        });
+
+        // Add Skills
+        document.getElementById('addSkills').addEventListener('click', function() {
+            const container = document.getElementById('skillsContainer');
+            const newSkills = createSkillsElement(skillsCount);
+            container.appendChild(newSkills);
+            skillsCount++;
+            updateRemoveButtons('skills');
+        });
+
+        // Add Project
+        document.getElementById('addProject').addEventListener('click', function() {
+            const container = document.getElementById('projectsContainer');
+            const newProject = createProjectElement(projectsCount);
+            container.appendChild(newProject);
+            projectsCount++;
+            updateRemoveButtons('project');
+        });
+
+        function createExperienceElement(index) {
+            const div = document.createElement('div');
+            div.className = 'dynamic-section experience-item';
+            div.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5>Experience ${index + 1}</h5>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-experience">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Job Title</label>
+                        <input type="text" class="form-control" name="experiences[${index}][jobTitle]">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Company</label>
+                        <input type="text" class="form-control" name="experiences[${index}][company]">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-control" name="experiences[${index}][location]">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Start Date</label>
+                        <input type="text" class="form-control" name="experiences[${index}][startDate]">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">End Date</label>
+                        <input type="text" class="form-control" name="experiences[${index}][endDate]">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Employment Type</label>
+                    <select class="form-select" name="experiences[${index}][employmentType]">
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Freelance">Freelance</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Responsibilities & Achievements</label>
+                    <div class="responsibilities-container">
+                        <div class="input-group mb-2">
+                            <input type="text" class="form-control responsibility-input">
+                            <button type="button" class="btn btn-outline-secondary add-responsibility">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add event listener for remove button
+            div.querySelector('.remove-experience').addEventListener('click', function() {
+                div.remove();
+                updateRemoveButtons('experience');
+            });
+
+            // Add event listener for add responsibility button
+            div.querySelector('.add-responsibility').addEventListener('click', function() {
+                addResponsibilityField(div.querySelector('.responsibilities-container'));
+            });
+
+            return div;
+        }
+
+        function createEducationElement(index) {
+            const div = document.createElement('div');
+            div.className = 'dynamic-section education-item';
+            div.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5>Education ${index + 1}</h5>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-education">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Degree</label>
+                        <input type="text" class="form-control" name="education[${index}][degree]">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Field of Study</label>
+                        <input type="text" class="form-control" name="education[${index}][fieldOfStudy]">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Institution</label>
+                        <input type="text" class="form-control" name="education[${index}][institution]">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-control" name="education[${index}][location]">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Graduation Date</label>
+                        <input type="text" class="form-control" name="education[${index}][graduationDate]">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">GPA</label>
+                        <input type="text" class="form-control" name="education[${index}][gpa]">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Honors</label>
+                        <input type="text" class="form-control" name="education[${index}][honors]">
+                    </div>
+                </div>
+            `;
+
+            div.querySelector('.remove-education').addEventListener('click', function() {
+                div.remove();
+                updateRemoveButtons('education');
+            });
+
+            return div;
+        }
+
+        function createSkillsElement(index) {
+            const div = document.createElement('div');
+            div.className = 'dynamic-section skills-item';
+            div.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5>Skill Category ${index + 1}</h5>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-skills">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Category Name</label>
+                        <input type="text" class="form-control" name="skills[${index}][category]">
+                    </div>
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label">Skills</label>
+                        <input type="text" class="form-control skills-input">
+                    </div>
+                </div>
+            `;
+
+            div.querySelector('.remove-skills').addEventListener('click', function() {
+                div.remove();
+                updateRemoveButtons('skills');
+            });
+
+            return div;
+        }
+
+        function createProjectElement(index) {
+            const div = document.createElement('div');
+            div.className = 'dynamic-section projects-item';
+            div.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5>Project ${index + 1}</h5>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-project">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Project Name</label>
+                        <input type="text" class="form-control" name="projects[${index}][name]">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Project Type</label>
+                        <select class="form-select" name="projects[${index}][type]">
+                            <option value="Personal">Personal</option>
+                            <option value="Professional">Professional</option>
+                            <option value="Academic">Academic</option>
+                            <option value="Open Source">Open Source</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" name="projects[${index}][description]" rows="2"></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Technologies</label>
+                        <input type="text" class="form-control technologies-input">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">URL</label>
+                        <input type="url" class="form-control" name="projects[${index}][url]">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Duration</label>
+                    <input type="text" class="form-control" name="projects[${index}][duration]">
+                </div>
+            `;
+
+            div.querySelector('.remove-project').addEventListener('click', function() {
+                div.remove();
+                updateRemoveButtons('project');
+            });
+
+            return div;
+        }
+
+        function updateRemoveButtons(type) {
+            const items = document.querySelectorAll(`.${type}-item`);
+            items.forEach((item, index) => {
+                const removeBtn = item.querySelector(`.remove-${type}`);
+                if (removeBtn) {
+                    removeBtn.style.display = items.length > 1 ? 'block' : 'none';
+                }
+            });
+        }
+
+        function addResponsibilityField(container) {
+            const inputGroup = document.createElement('div');
+            inputGroup.className = 'input-group mb-2';
+            inputGroup.innerHTML = `
+                <input type="text" class="form-control responsibility-input">
+                <button type="button" class="btn btn-outline-danger remove-responsibility">
+                    <i class="fas fa-minus"></i>
+                </button>
+            `;
+
+            inputGroup.querySelector('.remove-responsibility').addEventListener('click', function() {
+                inputGroup.remove();
+            });
+
+            container.appendChild(inputGroup);
+        }
+
+        // Add responsibility functionality to existing fields
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('add-responsibility') || e.target.parentElement.classList.contains('add-responsibility')) {
+                const button = e.target.classList.contains('add-responsibility') ? e.target : e.target.parentElement;
+                const container = button.closest('.mb-3').querySelector('.responsibilities-container');
+                addResponsibilityField(container);
+            }
+        });
+
+        // Form submission
+        document.getElementById('cvForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.style.display = 'flex';
+
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+
+            // Basic fields
+            for (let [key, value] of formData.entries()) {
+                if (!key.includes('[')) {
+                    data[key] = value;
+                }
+            }
+
+            // Collect experiences
+            data.experiences = [];
+            const experienceItems = document.querySelectorAll('.experience-item');
+            experienceItems.forEach((item, index) => {
+                const exp = {};
+                const inputs = item.querySelectorAll('input, select');
+                inputs.forEach(input => {
+                    const fieldName = input.name.replace(`experiences[${index}][`, '').replace(']', '');
+                    exp[fieldName] = input.value;
+                });
+
+                // Collect responsibilities
+                const responsibilities = [];
+                item.querySelectorAll('.responsibility-input').forEach(input => {
+                    if (input.value.trim()) {
+                        responsibilities.push(input.value.trim());
+                    }
+                });
+                exp.responsibilities = responsibilities;
+
+                if (exp.jobTitle || exp.company) {
+                    data.experiences.push(exp);
+                }
+            });
+
+            // Collect education
+            data.education = [];
+            const educationItems = document.querySelectorAll('.education-item');
+            educationItems.forEach((item, index) => {
+                const edu = {};
+                const inputs = item.querySelectorAll('input');
+                inputs.forEach(input => {
+                    const fieldName = input.name.replace(`education[${index}][`, '').replace(']', '');
+                    edu[fieldName] = input.value;
+                });
+
+                if (edu.degree || edu.institution) {
+                    data.education.push(edu);
+                }
+            });
+
+            // Collect skills
+            data.skills = [];
+            const skillsItems = document.querySelectorAll('.skills-item');
+            skillsItems.forEach((item, index) => {
+                const category = item.querySelector(`input[name="skills[${index}][category]"]`).value;
+                const skillsInput = item.querySelector('.skills-input').value;
+                
+                if (category && skillsInput) {
+                    data.skills.push({
+                        category: category,
+                        skills: skillsInput.split(',').map(s => s.trim()).filter(s => s)
+                    });
+                }
+            });
+
+            // Collect projects
+            data.projects = [];
+            const projectItems = document.querySelectorAll('.projects-item');
+            projectItems.forEach((item, index) => {
+                const project = {};
+                const inputs = item.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    if (input.name && input.name.includes('projects')) {
+                        const fieldName = input.name.replace(`projects[${index}][`, '').replace(']', '');
+                        project[fieldName] = input.value;
+                    }
+                });
+
+                // Handle technologies
+                const techInput = item.querySelector('.technologies-input');
+                if (techInput && techInput.value) {
+                    project.technologies = techInput.value.split(',').map(s => s.trim()).filter(s => s);
+                }
+
+                if (project.name) {
+                    data.projects.push(project);
+                }
+            });
+
+            // Send data to server
+            fetch('/create-cv', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                // Create download link
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = `CV_${data.firstName}_${data.lastName}_${new Date().toISOString().slice(0,10)}.docx`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                
+                loadingOverlay.style.display = 'none';
+                
+                // Show success message
+                alert('Your CV has been created and downloaded successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                loadingOverlay.style.display = 'none';
+                alert('An error occurred while creating your CV. Please try again.');
+            });
+        });
+
+        // Initialize remove button visibility
+        updateRemoveButtons('experience');
+        updateRemoveButtons('education');
+        updateRemoveButtons('skills');
+        updateRemoveButtons('project');
+    </script>
+</body>
+</html>
