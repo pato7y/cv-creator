@@ -18,7 +18,7 @@ A modern web application that creates professional, ATS-friendly CVs in Microsof
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/cv-creator.git
+   git clone https://github.com/pato7y/cv-creator.git
    cd cv-creator
    ```
 
@@ -270,9 +270,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/cv-creator/issues)
+- **Issues**: [GitHub Issues](https://github.com/pato7y/cv-creator/issues)
 - **Documentation**: This README
-- **Email**: your.email@example.com
+
 
 ## 🎯 Roadmap
 
